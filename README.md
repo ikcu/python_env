@@ -39,21 +39,21 @@
 ```
 python_env/
 ├── README.md
-├── Makefile					#makefile管理文件
-├── make.sh						#make管理脚本，提供帮助
-├── docker-compose_runtime.yaml	#开发环境compose文件
-├── docker-compose.yaml			#生产环境compose文件，打包python文件
-├── docker/						#docker images
-│   ├── docker_base/			#python base
+├── Makefile					# makefile管理文件
+├── make.sh						# make管理脚本，提供帮助
+├── docker-compose_runtime.yaml	# 开发环境compose文件
+├── docker-compose.yaml			# 生产环境compose文件，打包python文件
+├── docker/						# docker images
+│   ├── docker_base/			# python base
 │   │   ├── base.Dockerfile
 │   │   └── requirements/
 │   │       └── base.txt
-│   ├── docker_runtime/			#开发
+│   ├── docker_runtime/			# 开发
 │   │   └── runtime.Dockerfile
-│   ├── docker_app/				#生产
+│   ├── docker_app/				# 生产
 │   │   └── app.Dockerfile
 │   └── images/
-│       └── fel-python-base.tar  #已打包的python基础镜像包
+│       └── fel-python-base.tar  # 已打包的python基础镜像包,github单文件大小限制,已删除
 └── src/                         # python源文件及requirements
     ├── requirements.txt
     └── app.py
