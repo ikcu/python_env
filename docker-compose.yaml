@@ -1,0 +1,11 @@
+services:
+  app:
+    image: my-app:latest
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    ports:
+      - "8000:8000"
+
+volumes:
+  dbdata:
