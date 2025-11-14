@@ -4,45 +4,54 @@ RUNTIME_NAME=fel-python-runtime
 APP_NAME=my-app
 
 # images
-build-base:
+base-build:
 	docker build -f docker/docker_base/base.Dockerfile -t $(BASE_IMAGE):latest .
 
-save-base:
+base-save:
 	docker save -o docker/images/$(BASE_IMAGE).tar $(BASE_IMAGE):latest
 
-load-base:
+base-load:
 	docker load -i docker/images/$(BASE_IMAGE).tar
 
 # development
-build-runtime:
+runtime-build:
 	docker build -f docker/docker_runtime/runtime.Dockerfile -t $(RUNTIME_NAME):latest .
 
-save-runtime:
+runtime-save:
 	docker save -o docker/images/$(RUNTIME_NAME).tar $(RUNTIME_NAME):latest
 
-load-runtime:
+runtime-load:
 	docker load -i docker/images/$(RUNTIME_NAME).tar
 
 # production
-build-app:
+app-build:
 	docker build -f docker/docker_app/app.Dockerfile -t $(APP_NAME):latest .
 
-save-app:
+app-save:
 	docker save -o docker/images/$(APP_NAME).tar $(APP_NAME):latest
 
-load-app:
+app-load:
 	docker load -i docker/images/$(APP_NAME).tar
 
 # containers 
-run:
+app-run:
 	docker run --rm -p 8000:8000 $(APP_NAME):latest
 
 # compose 
-up:
-	docker compose up -d
+runtime-up:
+	docker compose -f docker-compose_runtime.yaml up -d
 
-down:
-	docker compose down
+runtime-down:
+	docker compose -f docker-compose_runtime.yaml down
 
-logs:
-	docker compose logs -f
+app-up:
+	docker compose -f docker-compose_app.yaml up -d
+
+app-down:
+	docker compose -f docker-compose_app.yaml down
+
+runtime-logs:
+	docker compose -f docker-compose_runtime.yaml logs -f
+
+app-logs:
+	docker compose -f docker-compose_app.yaml logs -f

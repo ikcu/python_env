@@ -1,0 +1,17 @@
+services:
+  runtime_app:
+    image: fel-python-runtime:latest
+    build:
+      context: .
+      dockerfile: docker/docker_runtime/runtime.Dockerfile
+    networks:
+      - development
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app
+    command: ["python3", "app.py"]
+
+networks:
+  development:
+    driver: bridge

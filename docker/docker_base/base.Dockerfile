@@ -15,5 +15,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd -m appuser
 USER appuser
 
-COPY requirements/base.txt /tmp/requirements.txt
+COPY docker/docker_base/requirements/base.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
