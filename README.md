@@ -71,11 +71,11 @@ python_env/
 ## 快速开始（开发）
 - 安装前置：已安装 `Docker`、`Docker Compose`、`make`
 - 构建基础与开发镜像：
-  - `make build-base`
-  - `make build-runtime`
+  - `make base-build`
+  - `make runtime-build`
 - 以 Compose 启动开发环境：
-  - `make up-runtime`
-  - 查看日志：`make logs-runtime`
+  - `make runtime-up`
+  - 查看日志：`make runtime-logs`
 - 挂载代码：`docker-compose_runtime.yaml` 将本地 `./src` 挂载到容器 `/app`
 - 启动命令：容器使用 `python3 app.py`。请在 `src/` 下提供 `app.py`。
 
@@ -97,8 +97,8 @@ if __name__ == "__main__":
 
 
 ## 生产示例
-- 构建生产镜像：`make build-app`（基于 `runtime`，复制 `src/` 并设置 `CMD`，参见 `docker/docker_app/app.Dockerfile`）
-- 直接运行容器：`make run`（映射 `8000:8000`，参见 `Makefile`）
+- 构建生产镜像：`make app-build`（基于 `runtime`，复制 `src/` 并设置 `CMD`，参见 `docker/docker_app/app.Dockerfile`）
+- 直接运行容器：`make app-run`（映射 `8000:8000`，参见 `Makefile`）
 - 使用 Compose：`docker compose -f docker-compose_app.yaml up -d`
 
 ```yaml
@@ -114,15 +114,15 @@ services:
 
 
 ## 镜像管理（离线/分发）
-- 保存基础镜像：`make save-base`（输出 `docker/images/fel-python-base.tar`）
-- 加载基础镜像：`make load-base`
-- 保存开发镜像：`make save-runtime` / 加载：`make load-runtime`
-- 保存生产镜像：`make save-app` / 加载：`make load-app`
+- 保存基础镜像：`make base-save`（输出 `docker/images/fel-python-base.tar`）
+- 加载基础镜像：`make base-load`
+- 保存开发镜像：`make runtime-save` / 加载：`make runtime-load`
+- 保存生产镜像：`make app-save` / 加载：`make app-load`
 
 示例：将镜像传至另一台机器
 - 保存：`make save-runtime && make save-app`
 - 传输：`scp docker/images/*.tar user@remote:/path/to/images/`
-- 加载：在远端执行 `make load-runtime && make load-app`
+- 加载：在远端执行 `make runtime-load && make app-load`
 
 
 ## 依赖与源配置
@@ -142,11 +142,11 @@ services:
 
 
 ## Make 命令一览
-- 构建镜像：`make base-build` / `make runtime-build` / `make app-build`
-- 保存/加载：`make base-load` / `make runtime-save` / `make runtime-load`
+- 构建镜像：`make build-base` / `make build-runtime` / `make build-app`
+- 保存/加载：`make base-save` / `make load-base` / `make runtime-save` / `make runtime-load`
 - 运行生产示例：`make app-run`
 - 开发编排：`make runtime-up` / `make runtime-down` / `make runtime-logs`
-- 生产编排：`make app-up` / `make app-down` / `make app-logs` 。
+- 生产编排：`make app-up` / `make app-down` / `make app-logs` 
 
 附：常用自定义命令（示例）
 - 构建并启动开发：`make base-build runtime-build runtime-up`
